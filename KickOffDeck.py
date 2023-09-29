@@ -115,8 +115,14 @@ if st.button('SUBMIT'):
     SPtable_variables = {}
     CHDtable_variables = {}
     contributions = contributionTable['Employee Amount']
-    SPcontributions = contributionTable['Spouse Amount']
-    CHDcontributions = contributionTable['Child Amount']
+    if 'Spouse Amount' in contributionTable:
+        SPcontributions = contributionTable['Spouse Amount']
+    else:
+        SPcontributions = None
+    if 'Child Amount' in contributionTable:
+        CHDcontributions = contributionTable['Child Amount']
+    else:
+        CHDcontributions = None
 
     
     for i in range(65):
@@ -131,29 +137,31 @@ if st.button('SUBMIT'):
 
         table_variables[key] = str(contributions[value_index])
     
-    for i in range(65):
-        if i == 0:
-            key = '0-SPCONT'
-            value_index = 0  # Use the first value
-        elif 15 <= i <= 64:
-            key = f"{i}SPCONT"
-            value_index = i - 14  # Adjust the index for the value
-        else:
-            continue  # Skip keys that are not needed
+    if SPcontributions is not None:
+        for i in range(65):
+            if i == 0:
+                key = '0-SPCONT'
+                value_index = 0  # Use the first value
+            elif 15 <= i <= 64:
+                key = f"{i}SPCONT"
+                value_index = i - 14  # Adjust the index for the value
+            else:
+                continue  # Skip keys that are not needed
 
-        SPtable_variables[key] = str(SPcontributions[value_index])
+            SPtable_variables[key] = str(SPcontributions[value_index])
 
-    for i in range(65):
-        if i == 0:
-            key = '0-CHDCONT'
-            value_index = 0  # Use the first value
-        elif 15 <= i <= 64:
-            key = f"{i}CHDCONT"
-            value_index = i - 14  # Adjust the index for the value
-        else:
-            continue  # Skip keys that are not needed
+    if CHDcontributions is not None:
+        for i in range(65):
+            if i == 0:
+                key = '0-CHDCONT'
+                value_index = 0  # Use the first value
+            elif 15 <= i <= 64:
+                key = f"{i}CHDCONT"
+                value_index = i - 14  # Adjust the index for the value
+            else:
+                continue  # Skip keys that are not needed
 
-        CHDtable_variables[key] = str(CHDcontributions[value_index])
+            CHDtable_variables[key] = str(CHDcontributions[value_index])
 
 
     #st.write(table_variables)
