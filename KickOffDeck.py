@@ -112,7 +112,11 @@ if st.button('SUBMIT'):
     }
 
     table_variables = {}
+    SPtable_variables = {}
+    CHDtable_variables = {}
     contributions = contributionTable['Employee Amount']
+    SPcontributions = contributionTable['Spouse Amount']
+    CHDcontributions = contributionTable['Child Amount']
 
     
     for i in range(65):
@@ -126,15 +130,47 @@ if st.button('SUBMIT'):
             continue  # Skip keys that are not needed
 
         table_variables[key] = str(contributions[value_index])
+    
+    for i in range(65):
+        if i == 0:
+            key = '0-SPCONT'
+            value_index = 0  # Use the first value
+        elif 15 <= i <= 64:
+            key = f"{i}SPCONT"
+            value_index = i - 14  # Adjust the index for the value
+        else:
+            continue  # Skip keys that are not needed
+
+        SPtable_variables[key] = str(SPcontributions[value_index])
+
+    for i in range(65):
+        if i == 0:
+            key = '0-CHDCONT'
+            value_index = 0  # Use the first value
+        elif 15 <= i <= 64:
+            key = f"{i}CHDCONT"
+            value_index = i - 14  # Adjust the index for the value
+        else:
+            continue  # Skip keys that are not needed
+
+        CHDtable_variables[key] = str(CHDcontributions[value_index])
+
 
     #st.write(table_variables)
+    if(not DepContribution):
+        remove_slide(ppt_template, 11)
 
     if(not LeftOverFunds):
-        remove_slide(ppt_template, 14)
+        if(not DepContribution):
+            remove_slide(ppt_template, 14)
+        else:
+            remove_slide(ppt_template, 15)
 
     # # Iterate through slides and replace text
     find_replace_variables(ppt_template, variables) 
     find_replace_variables(ppt_template, table_variables) 
+    find_replace_variables(ppt_template, SPtable_variables) 
+    find_replace_variables(ppt_template, CHDtable_variables) 
 
     # # Create a stream to save the modified presentation
     ppt_stream = BytesIO()
