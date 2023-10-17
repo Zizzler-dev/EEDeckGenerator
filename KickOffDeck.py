@@ -45,9 +45,9 @@ if not any(col in contributionTable.columns for col in expected_columns):
     st.warning("The uploaded contribution table is missing some expected columns.")
     st.stop()
 
-for col in expected_columns:
-    if col in contributionTable.columns:
-        contributionTable[col] = contributionTable[col].apply(lambda x: f"${x:,.2f}" if not pd.isna(x) else None)
+# for col in expected_columns:
+#     if col in contributionTable.columns:
+#         contributionTable[col] = contributionTable[col].apply(lambda x: f"${x:,.2f}" if not pd.isna(x) else None)
 
 
 
@@ -107,7 +107,7 @@ if st.button('SUBMIT'):
     variables = {
         "XXXXX": Client,
         "DATERANGE": f"{OERange[0].strftime('%m/%d/%Y')} - {OERange[1].strftime('%m/%d/%Y')}",
-        "MEDICAREX": 'Once you have selected your plan you must email zizzl health (support@zizzlhealth.com) to report your carrier and plan information. ' if MedicareEligible else '',
+        "MEDICAREX": "Your company's ICHRA contributions can be used toward Medicare expenses.  " if MedicareEligible else '',
         "DEPENDENTSX": 'Employees can receive additional contributions based on the number of dependents' if DepContribution else ''
     }
 
