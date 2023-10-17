@@ -71,7 +71,7 @@ OERange = st.date_input(
 #st.write(f"{OERange[0].strftime('%m/%d/%Y')} - {OERange[1].strftime('%m/%d/%Y')}")
 DepContribution = st.checkbox('Dependent Contribution')
 LeftOverFunds = st.checkbox('Leftover Funds')
-MedicareEligible = st.checkbox('Medicare Eligible')
+MedicareEligible = st.checkbox('Medicare Reimbursment')
 
 Contribution = st.checkbox('Upload Contribution Table?')
 
